@@ -4,6 +4,8 @@ body {
     width: 100vw;
     min-height: 100vh;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .background {
@@ -19,28 +21,28 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 10px;
     gap: 20px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.07);
 }
 
 header .logo {
-    height: 80px;
+    height: 6vh;
 }
 
 header .logo-name {
-    font-size: 3vw;
+    font-size: 4vh;
     color: var(--rose);
 }
 
 main {
-    height: calc(100vh - 175px);
     width: 100%;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 160px;
+    flex: 1;
 }
 
 .hero-header {
@@ -323,4 +325,38 @@ footer {
     padding: 10px;
     border-top: 1px solid rgba(0, 0, 0, 0.07);
     color: var(--light-gray);
+}
+
+
+/* Responsive */
+
+@media screen and (max-width: 1300px) {
+    .hero-header {
+        font-size: 3vw;
+    }
+}
+
+
+@media screen and (max-width: 1130px) {
+    main {
+        flex-direction: column-reverse;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .hero-header {
+        font-size: 1.5vw;
+    }
+}
+
+
+@media screen and (max-width: 500px) {
+
+    .auth-container {
+        scale: 0.8;
+    }
+
+    .hero-header {
+        display: none;
+    }
 }
