@@ -1,6 +1,8 @@
 
 
 //  Login and sign up form switcher
+
+// Variables
 const loginSwitcher = document.getElementById('loginSwitcher'),
     signupSwitcher = document.getElementById('signupSwitcher'),
     signInForm = document.getElementById('signInForm'),
@@ -10,6 +12,7 @@ const loginSwitcher = document.getElementById('loginSwitcher'),
     formHeader = document.getElementById('formIdentifier'),
     nextButton = document.getElementById('nextButton');
 
+// Getting on what form current user is
 const getCurrentActiveForm = () => {
     return (signUpForm.classList.contains("active-form") || nextSignUpForm.classList.contains("active-form")) ? 'signUp' : 'signIn';
 }
@@ -23,6 +26,7 @@ const hideSignInFrom = () => {
 }
 
 const hideSignUpForm = (removeActive = true) => {
+    // removeActive is used for switching to next form, we don't want to remove sign up tab highlight
     removeActive ? backgroundSwitcher.classList.remove("signup-switch") : null;
     removeActive ? signupSwitcher.classList.remove("active") : null;
     signUpForm.classList.remove("active-form");
@@ -67,6 +71,7 @@ loginSwitcher.addEventListener('click', () => {
 
 nextButton.addEventListener('click', () => {
     let current = getCurrentActiveForm();
+    // TODO: Add validation to check if password and confirmed password are the same
     if (signUpForm.checkValidity()) {
         hideSignInFrom();
         if (current == 'signUp') {
