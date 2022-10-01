@@ -3,7 +3,7 @@
 body {
     width: 100vw;
     min-height: 100vh;
-    overflow-y: hidden;
+    overflow: hidden;
 }
 
 .background {
@@ -30,4 +30,30 @@ header .logo {
 header .logo-name {
     font-size: 3vw;
     color: var(--rose);
+}
+
+main {
+    height: calc(100vh - 100px);
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding: 0 80px;
+}
+
+.hero-header {
+    display: flex;
+    align-items: center;
+    font-size: 80px;
+    color: var(--blue);
+}
+
+.text-heart {
+    color: var(--rose);
+}
+
+.illustrator {
+    pointer-events: none;
+    -webkit-user-drag: none;
+    user-select: none;
 }
