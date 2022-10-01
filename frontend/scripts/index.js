@@ -7,7 +7,8 @@ const loginSwitcher = document.getElementById('loginSwitcher'),
     signUpForm = document.getElementById('signUpForm'),
     nextSignUpForm = document.getElementById('nextSignUpForm'),
     backgroundSwitcher = document.querySelector('.background-switcher'),
-    formHeader = document.getElementById('formIdentifier');
+    formHeader = document.getElementById('formIdentifier'),
+    nextButton = document.getElementById('nextButton');
 
 const getCurrentActiveForm = () => {
     return signUpForm.classList.contains("active-form") ? 'signUp' : 'signIn';
@@ -21,15 +22,20 @@ const hideSignInFrom = () => {
 
 }
 
-const hideSignUpForm = () => {
-    backgroundSwitcher.classList.remove("signup-switch");
+const hideSignUpForm = (removeActive = true) => {
+    removeActive ? backgroundSwitcher.classList.remove("signup-switch") : null;
+    removeActive ? signupSwitcher.classList.remove("active") : null;
     signUpForm.classList.remove("active-form");
-    signupSwitcher.classList.remove("active");
+}
+
+const hideNextSignUpForm = () => {
+    nextSignUpForm.classList.remove("active-form");
 }
 
 const showSignUpForm = (current) => {
     if (current == 'signIn') {
         hideSignInFrom();
+        hideNextSignUpForm();
         formHeader.textContent = "Signup";
         backgroundSwitcher.classList.add("signup-switch");
         signupSwitcher.classList.add('active');
@@ -41,6 +47,7 @@ const showSignUpForm = (current) => {
 const showSignInForm = (current) => {
     if (current == 'signUp') {
         hideSignUpForm();
+        hideNextSignUpForm();
         formHeader.textContent = "Login";
         loginSwitcher.classList.add('active');
         signInForm.style.display = "flex";
@@ -57,3 +64,14 @@ loginSwitcher.addEventListener('click', () => {
     let current = getCurrentActiveForm();
     showSignInForm(current)
 });
+
+nextButton.addEventListener('click', () => {
+    let current = getCurrentActiveForm();
+    hideSignInFrom();
+    if (current == 'signUp') {
+        hideSignUpForm(false);
+    } else {
+        hideSignUpForm();
+    }
+    nextSignUpForm.classList.add('active-form');
+})
