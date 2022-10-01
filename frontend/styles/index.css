@@ -131,19 +131,17 @@ main {
     background: var(--background);
     height: 100%;
     width: 50%;
-    left: 0;
     z-index: -1;
+    transform: translate(-50%, 0);
     border-radius: var(--border-radius);
     filter: saturate(500%);
-    transition: border-radius, background, left, right;
-    transition-delay: 250ms ease-in-out;
+    transition: transform 250ms ease-in-out;
 }
 
 .background-switcher.signup-switch {
     --border-radius: 0 6px 6px 0;
     --background: var(--rose);
-    left: unset !important;
-    right: 0 !important;
+    transform: translate(50%, 0);
 }
 
 .form-container {
