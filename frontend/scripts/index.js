@@ -67,11 +67,13 @@ loginSwitcher.addEventListener('click', () => {
 
 nextButton.addEventListener('click', () => {
     let current = getCurrentActiveForm();
-    hideSignInFrom();
-    if (current == 'signUp') {
-        hideSignUpForm(false);
-    } else {
-        hideSignUpForm();
-    }
-    nextSignUpForm.classList.add('active-form');
+    if (signUpForm.checkValidity()) {
+        hideSignInFrom();
+        if (current == 'signUp') {
+            hideSignUpForm(false);
+        } else {
+            hideSignUpForm();
+        }
+        nextSignUpForm.classList.add('active-form');
+    } else return;
 })
