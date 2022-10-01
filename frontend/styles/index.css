@@ -62,7 +62,7 @@ main {
 }
 
 .auth-container {
-    --height: 70%;
+    --height: 600px;
     height: var(--height);
     background: rgba(233, 233, 233, 0.4);
     overflow: hidden;
