@@ -25,14 +25,14 @@
             <img src="./assets/dating.svg" alt="illustrator" class="illustrator">
         </div>
         <div class="auth-container">
-            <form action="javascript:void(0)" class="authentication-form" id="authenticationForm">
+            <div class="authentication-form" id="authenticationForm">
                 <header class="form-header" id="formIdentifier">Login</header>
                 <div class="switch-buttons">
                     <span class="background-switcher"></span>
                     <button class="switch-button active" id="loginSwitcher">Login</button>
                     <button class="switch-button" id="signupSwitcher">Signup</button>
                 </div>
-                <div id="signInForm" class="sign-in-form form-container active-form">
+                <form id="signInForm" class="sign-in-form form-container active-form">
                     <div class="input-container">
                         <input type="email" name="email" id="signinEmailAddress" class="form-input"
                             placeholder="Email Address" required>
@@ -40,8 +40,8 @@
                             placeholder="Password" required>
                     </div>
                     <button type="submit" id="submitForm" class="submit-btn">Login</button>
-                </div>
-                <div id="signUpForm" class="sign-up-form form-container  ">
+                </form>
+                <form id="signUpForm" class="sign-up-form form-container  ">
                     <div class="input-container">
                         <input type="email" name="email" id="signupEmailAddress" class="form-input"
                             placeholder="Email Address" required>
@@ -52,8 +52,8 @@
                     </div>
                     <button type="submit" id="next1Button" class="submit-btn">Next <i class="fa-solid fa-chevron-right"
                             style="font-size:0.9vw;"></i></button>
-                </div>
-                <div id="nextSignUpForm" class="next-sign-up-form form-container ">
+                </form>
+                <form id="nextSignUpForm" class="next-sign-up-form form-container ">
                     <div class="input-container">
                         <input type="number" name="number" id="ageInput" class="form-input" placeholder="Your age">
                         <div class="gender-selection">
@@ -85,8 +85,8 @@
                         </div>
                     </div>
                     <button type="submit" id="submitForm" class="submit-btn">Sign up</button>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </main>
     <footer>
