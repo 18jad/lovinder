@@ -160,6 +160,10 @@ main {
     transform: translate(0%, -100%);
 }
 
+#nextSignUpForm.active-form {
+    transform: translate(0%, -200%);
+}
+
 #signInForm.active-form {
     transform: translate(0%);
 }
