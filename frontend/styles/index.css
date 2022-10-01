@@ -21,6 +21,7 @@ header {
     justify-content: center;
     padding: 20px;
     gap: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
 }
 
 header .logo {
@@ -47,6 +48,7 @@ main {
     align-items: center;
     font-size: 80px;
     color: var(--blue);
+    text-shadow: 0 0 4px var(--light-gray);
 }
 
 .text-heart {
@@ -57,6 +59,7 @@ main {
     pointer-events: none;
     -webkit-user-drag: none;
     user-select: none;
+    filter: drop-shadow(0 0 1px var(--light-gray));
 }
 
 .auth-container {
