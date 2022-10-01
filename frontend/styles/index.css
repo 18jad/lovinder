@@ -48,7 +48,6 @@ main {
     align-items: center;
     font-size: 80px;
     color: var(--blue);
-    text-shadow: 0 0 4px var(--light-gray);
 }
 
 .text-heart {
