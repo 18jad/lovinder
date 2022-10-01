@@ -76,6 +76,7 @@ main {
     border-radius: 7px;
     border: 1px solid var(--light-gray);
     box-shadow: 0 7px 10px 5px rgba(51, 51, 51, 0.04);
+    scale: 0.999999;
 }
 
 .authentication-form {
@@ -129,7 +130,7 @@ main {
 
 .background-switcher {
     --border-radius: 6px 0 0 6px;
-    --background: #2563aa;
+    --background: var(--blue);
     position: absolute;
     background: var(--background);
     height: 100%;
@@ -137,7 +138,6 @@ main {
     z-index: -1;
     transform: translate(-50%, 0);
     border-radius: var(--border-radius);
-    filter: saturate(500%);
     transition: transform 250ms ease-in-out;
 }
 
