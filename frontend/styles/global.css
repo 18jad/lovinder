@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;600;900&display=swap');
+
 /* Global variables */
 :root {
     --pink: #f92b7b;
@@ -8,6 +10,7 @@
     --light-black: #333333;
     --gray: #a2a2a2;
     --light-gray: #bbbbbb;
+    --blue: #3e97ed;
 }
 
 /* Default sizing reset */
@@ -17,4 +20,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+*:not(i) {
+    font-family: Poppins;
 }
