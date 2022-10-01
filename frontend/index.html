@@ -22,6 +22,70 @@
             <h2 class="hero-header">Find your true L<i class="fa-solid fa-heart-pulse text-heart"></i>ve</h2>
             <img src="./assets/dating.svg" alt="illustrator" class="illustrator">
         </div>
+        <div class="auth-container">
+            <form action="javascript:void(0)" class="authentication-form" id="authenticationForm">
+                <header class="form-header" id="formIdentifier">Login</header>
+                <div class="switch-buttons">
+                    <span class="background-switcher"></span>
+                    <button class="switch-button active" id="loginSwitcher">Login</button>
+                    <button class="switch-button" id="signupSwitcher">Signup</button>
+                </div>
+                <div id="signInForm" class="sign-in-form form-container ">
+                    <div class="input-container">
+                        <input type="email" name="email" id="signinEmailAddress" class="form-input"
+                            placeholder="Email Address">
+                        <input type="passowrd" name="password" id="signinPassword" class="form-input"
+                            placeholder="Password">
+                    </div>
+                    <button type="submit" id="submitForm" class="submit-btn">Login</button>
+                </div>
+                <div id="signUpForm" class="sign-up-form form-container  active-form">
+                    <div class="input-container">
+                        <input type="email" name="email" id="signupEmailAddress" class="form-input"
+                            placeholder="Email Address">
+                        <input type="passowrd" name="password" id="signupPassword" class="form-input"
+                            placeholder="New password">
+                        <input type="passowrd" name="password" id="confirmPassword" class="form-input"
+                            placeholder="Confirm password">
+                    </div>
+                    <button type="submit" id="nextButton" class="submit-btn">Next <i class="fa-solid fa-chevron-right"
+                            style="font-size:0.9vw;"></i></button>
+                </div>
+                <div id="nextSignUpForm" class="next-sign-up-form form-container ">
+                    <div class="input-container">
+                        <input type="number" name="number" id="ageInput" class="form-input" placeholder="Your age">
+                        <div class="gender-selection">
+                            <p class="radio-type">Gender:</p>
+                            <div class="radio-options">
+                                <div class="radio-option">
+                                    <label for="maleGender">Male</label>
+                                    <input type="radio" name="gender" id="maleGender" class="radio-button" required>
+                                </div>
+                                <div class="radio-option">
+                                    <label for="femaleGender">Female</label>
+                                    <input type="radio" name="gender" id="femaleGender" class="radio-button">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="preference-selection">
+                            <p class="radio-type" style="white-space: nowrap;">Looking for:</p>
+                            <div class="radio-options">
+                                <div class="radio-option">
+                                    <label for="malePreference">Male</label>
+                                    <input type="radio" name="preference" id="malePreference" class="radio-button"
+                                        required>
+                                </div>
+                                <div class="radio-option">
+                                    <label for="femalePreference">Female</label>
+                                    <input type="radio" name="preference" id="femalePreference" class="radio-button">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" id="submitForm" class="submit-btn">Sign up</button>
+                </div>
+            </form>
+        </div>
     </main>
 </body>
 
