@@ -6,7 +6,8 @@ const loginSwitcher = document.getElementById('loginSwitcher'),
     signInForm = document.getElementById('signInForm'),
     signUpForm = document.getElementById('signUpForm'),
     nextSignUpForm = document.getElementById('nextSignUpForm'),
-    backgroundSwitcher = document.querySelector('.background-switcher');
+    backgroundSwitcher = document.querySelector('.background-switcher'),
+    formHeader = document.getElementById('formIdentifier');
 
 const getCurrentActiveForm = () => {
     return signUpForm.classList.contains("active-form") ? 'signUp' : 'signIn';
@@ -29,6 +30,7 @@ const hideSignUpForm = () => {
 const showSignUpForm = (current) => {
     if (current == 'signIn') {
         hideSignInFrom();
+        formHeader.textContent = "Signup";
         backgroundSwitcher.classList.add("signup-switch");
         signupSwitcher.classList.add('active');
         signUpForm.style.display = "flex";
@@ -39,6 +41,7 @@ const showSignUpForm = (current) => {
 const showSignInForm = (current) => {
     if (current == 'signUp') {
         hideSignUpForm();
+        formHeader.textContent = "Login";
         loginSwitcher.classList.add('active');
         signInForm.style.display = "flex";
         signInForm.classList.add('active-form');
