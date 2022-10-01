@@ -11,7 +11,7 @@ const loginSwitcher = document.getElementById('loginSwitcher'),
     nextButton = document.getElementById('nextButton');
 
 const getCurrentActiveForm = () => {
-    return signUpForm.classList.contains("active-form") ? 'signUp' : 'signIn';
+    return (signUpForm.classList.contains("active-form") || nextSignUpForm.classList.contains("active-form")) ? 'signUp' : 'signIn';
 }
 
 const hideSignInFrom = () => {
