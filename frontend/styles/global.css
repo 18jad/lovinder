@@ -1,7 +1,7 @@
 /* Global variables */
 :root {
     --pink: #f92b7b;
-    --rose: #fb5965;
+    --rose: rgb(251, 89, 101);
     --rose-varient: #fb665d;
     --white: #ffffff;
     --black: #000000;
