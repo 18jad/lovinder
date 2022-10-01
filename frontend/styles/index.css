@@ -147,7 +147,7 @@ main {
 }
 
 .form-container {
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
@@ -157,8 +157,11 @@ main {
     transition: transform 300ms ease-in-out;
 }
 
-.form-container.active-form {
-    display: flex;
+#signUpForm.active-form {
+    transform: translate(0%, -100%);
+}
+
+#signInForm.active-form {
     transform: translate(0%);
 }
 
