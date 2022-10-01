@@ -46,7 +46,7 @@ main {
 .hero-header {
     display: flex;
     align-items: center;
-    font-size: 80px;
+    font-size: 4vw;
     color: var(--blue);
 }
 
