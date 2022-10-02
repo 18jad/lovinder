@@ -20,6 +20,9 @@ class AuthController extends Controller
             "name" => "required",
             "email" => "required|email|unique:users",
             "password" => "required|min:6",
+            "age" => "required",
+            "gender" => "required",
+            "preference" => "required"
         ]);
 
         if ($validator->fails()) {
@@ -38,5 +41,37 @@ class AuthController extends Controller
                 'user' => $user
             ], 201);
         }
+    }
+    public function login(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            "email" => "required|email",
+            "password" => "required|min:6",
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'error' => $validator->errors()
+            ], 422);
+        } else {
+            if (!$token = auth()->attempt($validator->validated())) {
+                return response()->json([
+                    'status' => false,
+                    'error' => 'Unauthorized. Please try again.'
+                ], 401);
+            }
+            return $this->createNewToken($token);
+        }
+    }
+
+    public function createNewToken($token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+            'expires_in' => auth()->factory()->getTTL() * 60,
+            'user' => auth()->user(),
+        ]);
     }
 }
