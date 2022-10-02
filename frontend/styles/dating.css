@@ -1,1 +1,68 @@
 @import "./global.css";
+
+body {
+    width: 100vw;
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 60px;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+header .logo {
+    height: min(10vw, 50px);
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+
+.profile-picture {
+    height: 40px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 100px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.left-side {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+}
+
+.logo-name {
+    font-size: min(5vw, 30px);
+    color: var(--rose);
+}
+
+.favorites {
+    cursor: pointer;
+    width: 35px;
+    font-weight: bold;
+    color: var(--rose);
+    border-radius: 100px;
+    aspect-ratio: 1/1;
+    padding: 5px;
+    border: 1px solid var(--rose);
+}
