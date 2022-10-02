@@ -58,11 +58,18 @@ nav {
 
 .favorites {
     cursor: pointer;
-    width: 35px;
+    width: 40px;
+    font-size: 17px;
     font-weight: bold;
     color: var(--rose);
     border-radius: 100px;
     aspect-ratio: 1/1;
     padding: 5px;
-    border: 1px solid var(--rose);
+    background: rgba(255, 103, 103, 0.1);
+    border: 1px solid rgba(255, 103, 103, 0.2);
+    transition: background 250ms ease-in-out;
+}
+
+.favorites:hover {
+    background: rgba(255, 103, 103, 0.15);
 }
