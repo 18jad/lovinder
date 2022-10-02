@@ -22,11 +22,10 @@ Route::group([
     'prefix' => 'auth'
 
 ], function ($router) {
-
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
     Route::post('logout', [AuthController::class, 'logout']);
-    Route::post('profile', [AuthController::class, 'profile']);
+    Route::get('profile', [AuthController::class, 'profile']);
     Route::post('chat', [AuthController::class, 'getChat']);
     Route::post('messages', [AuthController::class, 'getMessages']);
 });
