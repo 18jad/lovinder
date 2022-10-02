@@ -298,3 +298,115 @@ main {
         font-size: 8px;
     }
 }
+
+/* Conversation page */
+.conversation-page {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.conversation-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 20px 100px;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.block-button {
+    padding: 7px 15px;
+    font-size: 16px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--rose);
+}
+
+.input-container {
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#messageInput {
+    flex: 1;
+    height: 60px;
+    padding: 20px;
+    outline: none;
+    background: var(--white);
+    border: 1px solid var(--light-gray);
+    border-left: none;
+    font-size: 17px;
+}
+
+.send-message {
+    width: 70px;
+    border: 1px solid var(--light-gray);
+    background: var(--white);
+    border-left: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: var(--blue);
+    transition: background 200ms ease-in-out;
+}
+
+.send-message:hover {
+    background: #f1f1f1;
+}
+
+.messages-container {
+    width: 100%;
+    height: calc(100% - 150px);
+    padding: 50px 20px;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.message {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    align-self: flex-start;
+    flex-direction: column;
+    background: var(--blue);
+    padding: 10px 20px;
+    position: relative;
+    border-radius: 20px;
+}
+
+.message-content {
+    max-width: 500px;
+    white-space: wrap;
+    word-break: break-all;
+}
+
+.message-time {
+    position: absolute;
+    bottom: -20px;
+    font-size: 10px;
+    user-select: none;
+}
+
+.message.me {
+    align-self: flex-end;
+    background: #f1f1f1 !important;
+}
+
+.message.me .message-time {
+    align-self: flex-end;
+}
+
+.close-conversation {
+    font-size: 20px;
+    cursor: pointer;
+}
