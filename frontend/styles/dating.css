@@ -301,9 +301,6 @@ main {
 
 /* Conversation page */
 .conversation-page {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
     height: 100%;
     width: 100%;
     position: relative;
@@ -329,7 +326,7 @@ main {
 
 .input-container {
     position: absolute;
-    bottom: 15px;
+    bottom: 30px;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -363,10 +360,11 @@ main {
 
 .messages-container {
     width: 100%;
-    height: calc(100% - 150px);
-    padding: 50px 20px;
+    height: 900px;
+    overflow: scroll;
+    padding: 105px 20px;
+    padding-top: 40px;
     display: flex;
-    justify-content: flex-end;
     flex-direction: column;
     gap: 25px;
 }
