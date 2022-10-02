@@ -3,6 +3,7 @@
 body {
     width: 100vw;
     min-height: 100vh;
+    height: 100vh;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -72,4 +73,78 @@ nav {
 
 .favorites:hover {
     background: rgba(255, 103, 103, 0.15);
+}
+
+main {
+    flex: 1;
+    display: flex;
+    width: 100%;
+}
+
+.chatting-side {
+    width: 23vw;
+    border-right: 1px solid var(--light-gray);
+    height: 100%;
+    overflow-y: auto;
+}
+
+.chat-header {
+    text-align: center;
+    border-bottom: 1px solid var(--light-gray);
+    font-weight: 500;
+}
+
+.chat-cards-container {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    width: 100%;
+    height: 90vh;
+    overflow-y: auto;
+}
+
+.chat-card {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 17px;
+    padding: 10px 15px;
+    border-bottom: 1px solid var(--light-gray);
+    width: 100%;
+    transition: all 200ms ease-in-out;
+    cursor: pointer;
+}
+
+.chat-card:hover {
+    background: #f1f1f1;
+}
+
+.chart-card-profile {
+    height: 45px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 100px;
+}
+
+.chat-card-name {
+    font-weight: 500;
+    font-size: 20px;
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--rose);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(199, 89, 89);
 }
