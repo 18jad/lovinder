@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 
 class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        // $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
 
     public function register(Request $request)
@@ -63,6 +63,11 @@ class AuthController extends Controller
             }
             return $this->createNewToken($token);
         }
+    }
+
+    public function profile()
+    {
+        return response()->json(auth()->user());
     }
 
     public function createNewToken($token)
