@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\ImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +28,7 @@ Route::group([
     Route::get('profile', [AuthController::class, 'profile']);
     Route::post('chat', [AuthController::class, 'getChat']);
     Route::post('messages', [AuthController::class, 'getMessages']);
+    Route::post('upload', [ImageController::class, 'upload']);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
