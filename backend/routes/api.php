@@ -6,7 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ImageController;
 
 Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
-    Route::post('login', [AuthController::class, 'login']);
+    Route::post('login', [AuthController::class, 'login'])->name('login');
     Route::post('register', [AuthController::class, 'register']);
     Route::post('logout', [AuthController::class, 'logout']);
 });
@@ -18,7 +18,7 @@ Route::group(["middleware" => "preference", "prefix" => "info"], function ($rout
     Route::post('messages', [AuthController::class, 'fetchMessages']);
 });
 
-Route::group(["prefix" => "images"], function ($router) {
+Route::group(['middleware' => 'api', "prefix" => "images"], function ($router) {
     Route::post('upload', [ImageController::class, 'upload']);
     Route::get('update', [ImageController::class, 'update']);
 });
