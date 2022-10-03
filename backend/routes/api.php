@@ -19,7 +19,7 @@ Route::group(["middleware" => "preference", "prefix" => "info"], function ($rout
 });
 
 Route::group(["prefix" => "images"], function ($router) {
-    Route::post('upload', 'App\Http\Controllers\ImageController@upload');
+    Route::post('upload', [ImageController::class, 'upload']);
     Route::get('update', [ImageController::class, 'update']);
 });
 
