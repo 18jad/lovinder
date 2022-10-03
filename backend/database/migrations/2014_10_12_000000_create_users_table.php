@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('age');
             $table->string('gender');
             $table->string('preference');
+            $table->string('profile')->nullable(true);
             $table->rememberToken();
             $table->timestamps();
         });
