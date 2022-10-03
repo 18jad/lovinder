@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 
@@ -65,9 +65,16 @@ class AuthController extends Controller
         }
     }
 
+
     public function profile()
     {
         return response()->json(auth()->user());
+    }
+
+    public function logout()
+    {
+        // blacklist the JWT token to make unusable anymore
+        auth()->logout(true);
     }
 
     public function createNewToken($token)
