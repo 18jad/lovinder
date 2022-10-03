@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\InfoController;
 
 Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
     Route::post('login', [AuthController::class, 'login'])->name('login');
@@ -11,11 +12,11 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
     Route::post('logout', [AuthController::class, 'logout']);
 });
 
-Route::group(["middleware" => "preference", "prefix" => "info"], function ($router) {
-    Route::get('profile', [AuthController::class, 'fetchProfile']);
-    Route::post('users', [AuthController::class, 'fetchUsers']);
-    Route::post('chat', [AuthController::class, 'fetchChat']);
-    Route::post('messages', [AuthController::class, 'fetchMessages']);
+Route::group(["middleware" => "api", "prefix" => "info"], function ($router) {
+    Route::get('profile', [InfoController::class, 'fetchProfile']);
+    Route::post('users', [InfoController::class, 'fetchUsers']);
+    Route::post('chat', [InfoController::class, 'fetchChat']);
+    Route::post('messages', [InfoController::class, 'fetchMessages']);
 });
 
 Route::group(['middleware' => 'api', "prefix" => "images"], function ($router) {
