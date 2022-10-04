@@ -360,3 +360,18 @@ footer {
         display: none;
     }
 }
+
+#authResult {
+    color: #333;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+[data-status="ok"] {
+    background: rgb(120, 254, 120);
+}
+
+[data-status="error"] {
+    background: rgb(254, 120, 120);
+}
