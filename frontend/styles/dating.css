@@ -408,3 +408,45 @@ main {
     font-size: 20px;
     cursor: pointer;
 }
+
+.profile-picker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background: white;
+    z-index: 1000000;
+    display: none;
+    place-content: center;
+}
+
+.labelPic {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 27px;
+    gap: 30px;
+    padding: 40px;
+    border: 1px solid var(--blue);
+    border-radius: 10000px;
+    aspect-ratio: 1/1;
+    cursor: pointer;
+    color: var(--blue);
+    transition: all 200ms ease-in-out;
+    box-shadow: 0 4px 6px #3331;
+}
+
+.labelPic:hover {
+    background: #f1f1f1c0;
+}
+
+.labelPic i {
+    font-size: 120px;
+}
+
+.show-profile-picker {
+    display: grid !important;
+}
