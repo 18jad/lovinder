@@ -5,10 +5,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\InfoController;
+use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\MatchingController;
 
 Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
-    Route::post('login', [AuthController::class, 'login'])->name('login');
+    Route::post('login', [AuthController::class, 'logisn'])->name('login');
     Route::post('register', [AuthController::class, 'register']);
     Route::post('logout', [AuthController::class, 'logout']);
 });
@@ -20,9 +21,9 @@ Route::group(["middleware" => "api", "prefix" => "info"], function ($router) {
 });
 
 Route::group(["middleware" => 'api', "prefix" => "chat"], function ($router) {
-    Route::post('chat', [InfoController::class, 'fetchChat']);
-    Route::post('messages', [InfoController::class, 'fetchMessages']);
-    Route::post('send_message', [InfoController::class, 'sendMessage']);
+    Route::post('chat', [MessagesController::class, 'fetchChat']);
+    Route::post('messages', [MessagesController::class, 'fetchMessages']);
+    Route::post('send_message', [MessagesController::class, 'sendMessage']);
 });
 
 Route::group(['middleware' => 'api', "prefix" => "date"], function ($router) {
