@@ -127,7 +127,6 @@ const register = (name, email, password, age, gender, preference) => {
             result.dataset.status = "error";
             result.hidden = false;
             let errors = data.error;
-            console.log(errors);
             for (let i of Object.keys(errors)) {
                 result.innerHTML += `${errors[i]}<br>`;
             }
@@ -144,4 +143,54 @@ nextSignUpForm.addEventListener('submit', (e) => {
         password = passwordInput.value,
         age = ageInput.value;
     register(name, email, password, age, gender, preference);
+})
+
+// login
+const signInEmailInput = document.getElementById('signinEmailAddress'),
+    signInPasswordInput = document.getElementById('signinPassword');
+
+const login = (email, password) => {
+    axios({
+        method: "POST",
+        url: baseUrl + '/auth/login',
+        data: {
+            email,
+            password,
+        },
+        headers: { "Content-Type": "multipart/form-data" },
+    }).then((response) => {
+        let data = response.data;
+        let error = data.error;
+        result.textContent = ""
+        if (error) {
+            result.dataset.status = "error";
+            result.hidden = false;
+            result.textContent = "Email or password incorrect";
+        } else {
+            let access_token = data.access_token;
+            let user = data.user;
+            localStorage.setItem('access_token', access_token);
+            localStorage.setItem('user_id', user.id);
+            localStorage.setItem('user_age', user.age);
+            localStorage.setItem('user_name', user.name);
+            localStorage.setItem('user_email', user.email);
+            localStorage.setItem('user_gender', user.gender);
+            localStorage.setItem('user_preference', user.preference);
+            localStorage.setItem('profile_check', user.profile == null ? false : true);
+            result.dataset.status = "ok";
+            result.textContent = "Successfully signed in as " + user.name;
+            result.hidden = false;
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000)
+        }
+    })
+}
+
+signInForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = signInEmailInput.value,
+        password = signInPasswordInput.value;
+
+    login(email, password);
 })
