@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\User;
+use App\Models\Conversation;
 
 class InfoController extends Controller
 {
@@ -24,5 +25,12 @@ class InfoController extends Controller
         $preference = $request->preference;
         $users = User::all()->where('gender', $preference);
         return response()->json($users);
+    }
+
+    public function fetchUserById(Request $request)
+    {
+        $id = $request->id;
+        $user = User::find($id);
+        return response()->json($user);
     }
 }
