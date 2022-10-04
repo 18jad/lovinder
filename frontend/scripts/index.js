@@ -82,3 +82,66 @@ nextButton.addEventListener('click', () => {
         nextSignUpForm.classList.add('active-form');
     } else return;
 })
+
+
+
+// Sign up and sign in functionality
+const nameInput = document.getElementById('signUpName'),
+    emailInput = document.getElementById('signupEmailAddress'),
+    passwordInput = document.getElementById('signupPassword'),
+    ageInput = document.getElementById('ageInput'),
+    maleGender = document.getElementById('maleGender'),
+    femaleGender = document.getElementById('femaleGender'),
+    malePreference = document.getElementById('malePreference'),
+    femalePreference = document.getElementById('femalePreference'),
+    result = document.getElementById('authResult');
+
+
+const baseUrl = 'http://127.0.0.1:8000/api';
+
+const register = (name, email, password, age, gender, preference) => {
+    axios({
+        method: "POST",
+        url: baseUrl + '/auth/register',
+        data: {
+            name,
+            email,
+            password,
+            age,
+            gender,
+            preference
+        },
+        headers: { "Content-Type": "multipart/form-data" },
+    }).then((response) => {
+        let data = response.data;
+        let status = data.status;
+        result.textContent = "";
+        if (status) {
+            result.dataset.status = "ok";
+            result.textContent = "Successfully registered. Redirecting to sign in";
+            result.hidden = false;
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000)
+        } else {
+            result.dataset.status = "error";
+            result.hidden = false;
+            let errors = data.error;
+            console.log(errors);
+            for (let i of Object.keys(errors)) {
+                result.innerHTML += `${errors[i]}<br>`;
+            }
+        }
+    })
+}
+
+nextSignUpForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const gender = maleGender.checked ? 'male' : 'female',
+        preference = malePreference.checked ? 'male' : 'female',
+        name = nameInput.value,
+        email = emailInput.value,
+        password = passwordInput.value,
+        age = ageInput.value;
+    register(name, email, password, age, gender, preference);
+})
