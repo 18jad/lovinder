@@ -117,7 +117,8 @@ const baseUrl = 'http://127.0.0.1:8000/api';
 const profilePicker = document.querySelector('.profile-picker'),
     uploadInput = document.getElementById('uploadProfile'),
     profileResult = document.querySelector('.profile-result'),
-    labelPic = document.querySelector('.labelPic');
+    labelPic = document.querySelector('.labelPic'),
+    signOutBtn = document.querySelector('.profile-picture');
 
 let checkProfile = localStorage.getItem('profile_check') == 'false' ? false : true;
 
@@ -202,3 +203,19 @@ navigationProfile.src = "../" + localStorage.getItem('profile_src');
         console.log(response)
     })
 })();
+
+// sign out
+const signout = () => {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('user_id');
+    localStorage.removeItem('user_age');
+    localStorage.removeItem('user_name');
+    localStorage.removeItem('user_email');
+    localStorage.removeItem('user_gender');
+    localStorage.removeItem('user_preference');
+    localStorage.removeItem('profile_src');
+    localStorage.removeItem('profile_check');
+    window.location.reload();
+}
+
+signOutBtn.onclick = signout;
