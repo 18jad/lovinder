@@ -71,7 +71,7 @@ class AuthController extends Controller
         auth()->logout(true);
     }
 
-    public function createNewToken($token)
+    public function createNewToken($token): \Illuminate\Http\JsonResponse
     {
         return response()->json([
             'access_token' => $token,
