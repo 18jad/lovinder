@@ -15,6 +15,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
 Route::group(["middleware" => "api", "prefix" => "info"], function ($router) {
     Route::get('profile', [InfoController::class, 'fetchProfile']);
     Route::post('users', [InfoController::class, 'fetchUsers']);
+    Route::post('user_profile', [InfoController::class, 'fetchUserById']);
     Route::post('chat', [InfoController::class, 'fetchChat']);
     Route::post('messages', [InfoController::class, 'fetchMessages']);
 });
