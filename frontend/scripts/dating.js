@@ -68,6 +68,7 @@ navigationName.textContent = localStorage.getItem('user_name');
 navigationProfile.src = "../" + localStorage.getItem('profile_src');
 
 // Get user chat
+const chatContainer = document.querySelector('.chat-cards-container');
 (() => {
     axios({
         method: "POST",
@@ -77,7 +78,17 @@ navigationProfile.src = "../" + localStorage.getItem('profile_src');
             Authorization: `Bearer ${localStorage.getItem('access_token')}`,
         },
     }).then((response) => {
-        // console.log(response)    
+        let data = response.data;
+        for (let i of Object.keys(data)) {
+            let user = data[i].original;
+            let cardHtml = `
+                <div class="chat-card" data-id="1">
+                    <img src="../backend/public/images/${user.profile}"
+                        alt="profile" class="chart-card-profile">
+                    <span class="chat-card-name">${user.name}</span>
+                </div>`
+            chatContainer.innerHTML += cardHtml;
+        }
     })
 })();
 
@@ -99,7 +110,6 @@ navigationProfile.src = "../" + localStorage.getItem('profile_src');
         let imgCount = 0
         const cloudUrl = 'https://djjjk9bjm164h.cloudfront.net/'
         const data = response.data
-        console.log(data)
         const frame = document.body.querySelector('.frame')
         for (let i of Object.keys(data)) {
             appendCard(data[i])
@@ -120,33 +130,6 @@ navigationProfile.src = "../" + localStorage.getItem('profile_src');
             moveY = 0
             complete()
         }
-        // age
-        // :
-        // 31
-        // created_at
-        // :
-        // "2022-10-04T22:53:11.000000Z"
-        // email
-        // :
-        // "mary@gmail.com"
-        // gender
-        // :
-        // "female"
-        // id
-        // :
-        // 17
-        // name
-        // :
-        // "Mary Mixer"
-        // preference
-        // :
-        // "male"
-        // profile
-        // :
-        // "avatar-ce745a4557c3996c92cbdf3ab034a84b166492400617.jpg"
-        // updated_at
-        // :
-        // "2022-10-04T22:53:26.000000Z"
         function appendCard(data) {
             const firstCard = frame.children[0]
             const newCard = document.createElement('div')
@@ -163,6 +146,7 @@ navigationProfile.src = "../" + localStorage.getItem('profile_src');
             </div>
           </div>
         `
+            newCard.dataset.id = data.id;
             if (firstCard) frame.insertBefore(newCard, firstCard)
             else frame.appendChild(newCard)
             imgCount++
@@ -176,6 +160,11 @@ navigationProfile.src = "../" + localStorage.getItem('profile_src');
             current.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${deg}deg)`
             likeText.style.opacity = Math.abs((x / innerWidth * 2.1))
             likeText.className = `is-like ${x > 0 ? 'like' : 'nope'}`
+            if (x > 0) {
+                current.dataset.status = "match"
+            } else {
+                current.dataset.status = "yuck"
+            }
             if (duration) current.style.transition = `transform ${duration}ms`
         }
 
@@ -207,7 +196,11 @@ navigationProfile.src = "../" + localStorage.getItem('profile_src');
             const flyX = (Math.abs(moveX) / moveX) * innerWidth * 1.3
             const flyY = (moveY / moveX) * flyX
             setTransform(flyX, flyY, flyX / innerWidth * 50, innerWidth)
-
+            let status = current.dataset.status;
+            // if user matched the current person
+            if (status == 'match') {
+                matchUser(current.dataset.id)
+            }
             const prev = current
             const next = current.previousElementSibling
             if (next) initCard(next)
@@ -239,3 +232,20 @@ const signout = () => {
 }
 
 signOutBtn.onclick = signout;
+
+
+function matchUser(user_id) {
+    axios({
+        method: "POST",
+        url: baseUrl + '/date/match',
+        data: {
+            match_with: user_id
+        },
+        headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
+    }).then((response) => {
+        console.log(response)
+    })
+}
