@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\InfoController;
+use App\Http\Controllers\MatchingController;
 
 Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
     Route::post('login', [AuthController::class, 'login'])->name('login');
@@ -20,9 +21,12 @@ Route::group(["middleware" => "api", "prefix" => "info"], function ($router) {
     Route::post('messages', [InfoController::class, 'fetchMessages']);
 });
 
+Route::group(['middleware' => 'api', "prefix" => "date"], function ($router) {
+    Route::post('match', [MatchingController::class, 'match']);
+});
+
 Route::group(['middleware' => 'api', "prefix" => "images"], function ($router) {
     Route::post('upload', [ImageController::class, 'upload']);
-    Route::get('update', [ImageController::class, 'update']);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
