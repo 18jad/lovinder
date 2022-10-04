@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+    <link rel="shortcut icon" href="./assets/logo.svg" type="image/x-icon">
+    <link rel="stylesheet" href="./styles/index.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
+    <script src="./scripts/index.js" defer></script>
+    <title>Lovinder | Find your partner 💘</title>
+</head>
+
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="./assets/logo.svg" alt="logo" class="logo">
+        </div>
+        <h1 class="logo-name">Lovinder</h1>
+    </header>
+    <main>
+        <div class="hero-side">
+            <h2 class="hero-header">Find your true L<i class="fa-solid fa-heart-pulse text-heart"></i>ve</h2>
+            <img src="./assets/dating.svg" alt="illustrator" class="illustrator">
+        </div>
+        <div class="auth-container">
+            <p id="authResult" data-status="ok" hidden>Succesfully signed in</p>
+            <div class="authentication-form" id="authenticationForm">
+                <header class="form-header" id="formIdentifier">Login</header>
+                <div class="switch-buttons">
+                    <span class="background-switcher"></span>
+                    <button class="switch-button active" id="loginSwitcher">Login</button>
+                    <button class="switch-button" id="signupSwitcher">Signup</button>
+                </div>
+                <form id="signInForm" action="javascript:void(0)" class="sign-in-form form-container active-form">
+                    <div class="input-container">
+                        <input type="email" name="email" id="signinEmailAddress" class="form-input"
+                            placeholder="Email Address" required>
+                        <input type="password" name="password" id="signinPassword" class="form-input"
+                            placeholder="Password" required>
+                    </div>
+                    <button type="submit" id="submitForm" class="submit-btn">Login</button>
+                </form>
+                <form id="signUpForm" action="javascript:void(0)" class="sign-up-form form-container  ">
+                    <div class="input-container">
+                        <input type="email" name="email" id="signupEmailAddress" class="form-input"
+                            placeholder="Email Address" required>
+                        <input type="text" name="name" id="signUpName" class="form-input" placeholder="Full Name"
+                            required>
+                        <input type="password" name="password" id="signupPassword" class="form-input"
+                            placeholder="New password" required>
+                    </div>
+                    <button type="submit" id="nextButton" class="submit-btn">Next <i class="fa-solid fa-chevron-right"
+                            style="font-size:0.9vw;"></i></button>
+                </form>
+                <form id="nextSignUpForm" action="javascript:void(0)" class="next-sign-up-form form-container ">
+                    <div class="input-container">
+                        <input type="number" name="number" id="ageInput" class="form-input" placeholder="Your age">
+                        <div class="gender-selection">
+                            <p class="radio-type">Gender:</p>
+                            <div class="radio-options">
+                                <div class="radio-option">
+                                    <label for="maleGender">Male</label>
+                                    <input type="radio" name="gender" id="maleGender" class="radio-button" required>
+                                </div>
+                                <div class="radio-option">
+                                    <label for="femaleGender">Female</label>
+                                    <input type="radio" name="gender" id="femaleGender" class="radio-button">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="preference-selection">
+                            <p class="radio-type" style="white-space: nowrap;">Looking for:</p>
+                            <div class="radio-options">
+                                <div class="radio-option">
+                                    <label for="malePreference">Male</label>
+                                    <input type="radio" name="preference" id="malePreference" class="radio-button"
+                                        required>
+                                </div>
+                                <div class="radio-option">
+                                    <label for="femalePreference">Female</label>
+                                    <input type="radio" name="preference" id="femalePreference" class="radio-button">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" id="submitForm" class="submit-btn">Sign up</button>
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer>
+        Lovinger 💘 | Copyright &#169; 2022
+    </footer>
+</body>
+
+</html>
