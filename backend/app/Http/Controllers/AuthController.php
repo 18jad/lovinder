@@ -29,7 +29,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => false,
                 'error' => $validator->errors()
-            ], 401);
+            ]);
         } else {
             $user = User::create(array_merge(
                 $validator->validated(),
@@ -39,7 +39,7 @@ class AuthController extends Controller
                 'status' => true,
                 'message' => 'User successfully registered',
                 'user' => $user
-            ], 201);
+            ]);
         }
     }
     public function login(Request $request)
@@ -53,13 +53,13 @@ class AuthController extends Controller
             return response()->json([
                 'status' => false,
                 'error' => $validator->errors()
-            ], 422);
+            ]);
         } else {
             if (!$token = auth()->attempt($validator->validated())) {
                 return response()->json([
                     'status' => false,
                     'error' => 'Unauthorized. Please try again.'
-                ], 401);
+                ]);
             }
             return $this->createNewToken($token);
         }
