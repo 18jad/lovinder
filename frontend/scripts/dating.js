@@ -190,9 +190,9 @@ navigationProfile.src = "../" + localStorage.getItem('profile_src');
 (() => {
     axios({
         method: "POST",
-        url: baseUrl + '/chat/chat',
+        url: baseUrl + '/info/users',
         data: {
-            preference: 'male',
+            preference: localStorage.getItem('user_preference'),
         },
         headers: {
             "Content-Type": "multipart/form-data",
