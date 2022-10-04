@@ -1,3 +1,8 @@
+// check if user is logged in
+if (!localStorage.getItem('access_token')) {
+    window.location.href = './index.html'
+}
+
 // For tinder card style
 // Credit: https://codepen.io/rudtjd2548/pen/qBodXzO
 let imgCount = 0
