@@ -180,6 +180,7 @@ if (localStorage.getItem('access_token')) {
                 localStorage.setItem('user_email', user.email);
                 localStorage.setItem('user_gender', user.gender);
                 localStorage.setItem('user_preference', user.preference);
+                localStorage.setItem('profile_src', '/backend/public/images/' + user.profile);
                 localStorage.setItem('profile_check', user.profile == null ? false : true);
                 result.dataset.status = "ok";
                 result.textContent = "Successfully signed in as " + user.name;
