@@ -17,8 +17,12 @@ Route::group(["middleware" => "api", "prefix" => "info"], function ($router) {
     Route::get('profile', [InfoController::class, 'fetchProfile']);
     Route::post('users', [InfoController::class, 'fetchUsers']);
     Route::post('user_profile', [InfoController::class, 'fetchUserById']);
+});
+
+Route::group(["middleware" => 'api', "prefix" => "chat"], function ($router) {
     Route::post('chat', [InfoController::class, 'fetchChat']);
     Route::post('messages', [InfoController::class, 'fetchMessages']);
+    Route::post('send_message', [InfoController::class, 'sendMessage']);
 });
 
 Route::group(['middleware' => 'api', "prefix" => "date"], function ($router) {
