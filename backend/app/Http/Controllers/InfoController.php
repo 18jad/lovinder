@@ -33,4 +33,21 @@ class InfoController extends Controller
         $user = User::find($id);
         return response()->json($user);
     }
+
+    public function fetchUserById_no_request($id)
+    {
+        $user = User::find($id);
+        return response()->json($user);
+    }
+
+
+    public function fetchChat(Request $request)
+    {
+        $chats = Conversation::all()->where('user_id', $request->user()->id)->unique(['converstation_with']);
+        $result = [];
+        foreach ($chats as $chat) {
+            $result[] = $this->fetchUserById_no_request($chat->converstation_with);
+        }
+        return response()->json($result);
+    }
 }
