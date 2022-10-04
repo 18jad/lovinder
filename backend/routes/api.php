@@ -9,7 +9,7 @@ use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\MatchingController;
 
 Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
-    Route::post('login', [AuthController::class, 'logisn'])->name('login');
+    Route::post('login', [AuthController::class, 'login'])->name('login');
     Route::post('register', [AuthController::class, 'register']);
     Route::post('logout', [AuthController::class, 'logout']);
 });
