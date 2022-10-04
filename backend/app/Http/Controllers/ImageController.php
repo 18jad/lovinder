@@ -24,7 +24,7 @@ class ImageController extends Controller
             return response()->json([
                 'status' => false,
                 'error' => $validator->errors()
-            ], 401);
+            ]);
         } else {
             // get the image name with the file type
             $uploaded_image_full_name = $request->image->getClientOriginalName();
