@@ -102,3 +102,98 @@ function cancel() {
     setTransform(0, 0, 0, 100)
     setTimeout(() => current.style.transition = '', 100)
 }
+
+
+// Linking
+
+const baseUrl = 'http://127.0.0.1:8000/api';
+
+// check if user has a profile or no
+const profilePicker = document.querySelector('.profile-picker'),
+    uploadInput = document.getElementById('uploadProfile'),
+    profileResult = document.querySelector('.profile-result'),
+    labelPic = document.querySelector('.labelPic');
+
+let checkProfile = localStorage.getItem('profile_check') == 'false' ? false : true;
+
+if (!checkProfile) {
+    profilePicker.classList.add('show-profile-picker');
+    uploadInput.addEventListener('change', () => {
+        validateAndUpload(uploadInput);
+    })
+}
+
+function validateAndUpload(input) {
+    let URL = window.URL || window.webkitURL;
+    let file = input.files[0];
+
+    if (file) {
+        let image = new Image();
+
+        image.onload = function () {
+            if (this.width) {
+                axios({
+                    method: "POST",
+                    url: baseUrl + '/images/upload',
+                    data: {
+                        image: file
+                    },
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                        Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+                    },
+                }).then((response) => {
+                    let data = response.data;
+                    let image_src = data.image_src;
+                    localStorage.setItem('profile_src', image_src);
+                    localStorage.setItem('profile_check', true);
+                    profileResult.hidden = false;
+                    labelPic.innerHTML = ""
+                    labelPic.style.backgroundImage = `url('${URL.createObjectURL(file)}')`;
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000)
+                })
+            }
+        };
+        image.src = URL.createObjectURL(file);
+    }
+}
+
+// Update homepage
+const navigationName = document.querySelector('.profile-name'),
+    navigationProfile = document.querySelector('.profile-picture');
+
+navigationName.textContent = localStorage.getItem('user_name');
+navigationProfile.src = "../" + localStorage.getItem('profile_src');
+
+// Get user chat
+(() => {
+    axios({
+        method: "POST",
+        url: baseUrl + '/chat/chat',
+        headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
+    }).then((response) => {
+        // console.log(response)    
+    })
+})();
+
+// get users by preference
+(() => {
+    axios({
+        method: "POST",
+        url: baseUrl + '/chat/chat',
+        data: {
+            preference: 'male',
+        },
+        headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
+    }).then((response) => {
+        console.log(response)
+    })
+})();
