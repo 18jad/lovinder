@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('matching', function (Blueprint $table) {
+        Schema::create('matchings', function (Blueprint $table) {
             $table->id();
             $table->integer("first_id");
             $table->integer("second_id");
