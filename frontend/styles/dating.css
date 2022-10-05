@@ -301,9 +301,10 @@ main {
 
 /* Conversation page */
 .conversation-page {
-    height: 100%;
+    height: 60%;
     width: 100%;
     position: relative;
+    top: 0;
 }
 
 .conversation-header {
@@ -325,8 +326,8 @@ main {
 }
 
 .input-container {
-    position: absolute;
-    bottom: 10px;
+    position: fixed;
+    bottom: 0;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -358,11 +359,12 @@ main {
 }
 
 .messages-container {
-    width: 100%;
-    height: 900px;
+    width: 82%;
+    height: 82%;
     overflow: scroll;
-    padding: 105px 20px;
-    padding-top: 40px;
+    padding: 60px 20px;
+    position: fixed;
+    bottom: 0;
     display: flex;
     flex-direction: column;
     gap: 30px;
