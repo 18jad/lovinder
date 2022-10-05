@@ -328,7 +328,7 @@ main {
 .input-container {
     position: fixed;
     bottom: 0;
-    width: 100%;
+    width: 81.3%;
     display: flex;
     justify-content: space-between;
 }
@@ -362,7 +362,8 @@ main {
     width: 82%;
     height: 82%;
     overflow: scroll;
-    padding: 60px 20px;
+    padding: 40px 20px;
+    padding-bottom: 90px;
     position: fixed;
     bottom: 0;
     display: flex;
@@ -379,6 +380,7 @@ main {
     align-self: flex-start;
     flex-direction: column;
     background: #f1f1f1;
+    min-width: 150px;
     padding: 10px 20px;
     position: relative;
     border-radius: 20px;
