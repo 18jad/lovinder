@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Conversation;
 use App\Models\Message;
 use App\Models\User;
+use App\Models\Block;
 
 class MessagesController extends Controller
 {
@@ -53,6 +54,19 @@ class MessagesController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Message sent successfully',
+        ]);
+    }
+
+    public function block(Request $request)
+    {
+        $second_id = $request->second_id;
+        Block::create([
+            'first_id' => auth()->user()->id,
+            'second_id' => $second_id,
+        ]);
+        return response()->json([
+            'status' => true,
+            'message' => 'Blocked successfully',
         ]);
     }
 
