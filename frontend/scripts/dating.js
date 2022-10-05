@@ -496,6 +496,8 @@ setTimeout(() => {
     closeBtn.onclick = closeConversationScreen;
 }, 1000)
 
+const blockResult = document.querySelector('.block-result');
+
 // Blocking
 const block = (user_id) => {
     axios({
@@ -510,10 +512,16 @@ const block = (user_id) => {
         },
     }).then((response) => {
         if (response.data.status) {
-
+            blockResult.textContent = "Blocked successfully";
+            setTimeout(() => {
+                window.location.reload();
+            }, 1500)
         } else {
-
+            blockResult.textContent = "Error occured";
         }
+        blockResult.hidden = false;
+    }).catch((error) => {
+        blockResult.textContent = error;
     })
 }
 
