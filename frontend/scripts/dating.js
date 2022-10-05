@@ -366,7 +366,7 @@ const closeConversationScreen = () => {
 // message component
 const message = (properties) => {
     return `
-        <div class="message me">
+        <div class="message ${properties.byMe ? 'me' : ''}">
             <p class="message-content">${properties.message}</p>
             <p class="message-time">${properties.time}</p>
         </div>
@@ -393,7 +393,15 @@ function getMessages(conversationId) {
             Authorization: `Bearer ${localStorage.getItem('access_token')}`,
         },
     }).then((response) => {
-        console.log(response)
+        let messages = response.data;
+        for (let i of Object.keys(messages)) {
+            console.log(messages[i])
+            messagesContainer.innerHTML += message({
+                message: messages[i].message,
+                time: `${messages[i].created_at.split('T')[0]} ${messages[i].created_at.split('T')[1].split('.')[0]}`,
+                byMe: messages[i].sender_id == localStorage.getItem('user_id') ? true : false,
+            })
+        }
     })
 }
 
