@@ -326,7 +326,7 @@ main {
 
 .input-container {
     position: absolute;
-    bottom: 30px;
+    bottom: 10px;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -334,7 +334,6 @@ main {
 
 #messageInput {
     flex: 1;
-    height: 60px;
     padding: 20px;
     outline: none;
     background: var(--white);
