@@ -366,6 +366,7 @@ main {
     display: flex;
     flex-direction: column;
     gap: 30px;
+    scroll-behavior: smooth;
 }
 
 .message {
