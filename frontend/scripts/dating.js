@@ -406,6 +406,8 @@ function getMessages(conversationId) {
                 byMe: messages[i].sender_id == localStorage.getItem('user_id') ? true : false,
             })
         }
+        // auto scroll to end
+        messagesContainer.scrollTo(0, messagesContainer.clientHeight);
     })
 }
 
@@ -453,6 +455,8 @@ const sendMessage = (receiver_id, converstation_id, message) => {
                 time: `${messageDate.toISOString().split('T')[0]} ${messageDate.toISOString().split('T')[1].split('.')[0]}`,
                 byMe: true,
             })
+            // auto scroll to end
+            messagesContainer.scrollTo(0, messagesContainer.clientHeight);
         } else {
             alert("Error occured");
         }
