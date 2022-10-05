@@ -121,7 +121,7 @@ const chatContainer = document.querySelector('.chat-cards-container');
         data.forEach(d => {
             let user = d[0].original;
             let cardHtml = `
-                <div  class = "chat-card" data-id="${d[1].id}" data-name="${user.name}">
+                <div  class = "chat-card" data-id="${d[1].id}" data-userid="${user.id}" data-name="${user.name}">
                 <img  src   = "../backend/public/images/${user.profile}"
                 alt   = "profile" class     = "chart-card-profile">
                 <span class = "chat-card-name">${user.name}</span>
@@ -333,6 +333,9 @@ const conversationPage = document.querySelector('.conversation-page'),
     chatterName = document.querySelector('.chatter-name'),
     messagesContainer = document.querySelector('.messages-container');
 
+let mainConversationId = null;
+let mainReceiverId = null;
+
 /**
  * @description Show conversation screen + fetch conversation messages
  * @action Hide matching page and show conversation screen with the chat messages and user info 
@@ -343,7 +346,7 @@ const showConversationScreen = (e) => {
     chatterName.textContent = e.dataset.name;
 
     let conversationId = e.dataset.id;
-
+    mainReceiverId = e.dataset.userid;
     // get conversation messages
     getMessages(conversationId);
 
@@ -382,6 +385,8 @@ function getMessages(conversationId) {
     // empty old messages
     messagesContainer.innerHTML = "";
 
+    mainConversationId = conversationId;
+
     axios({
         method: "POST",
         url: baseUrl + '/chat/messages',
@@ -404,7 +409,36 @@ function getMessages(conversationId) {
     })
 }
 
-// Add the function to each card
+const sendMessage = (receiver_id, converstation_id, message) => {
+    axios({
+        method: "POST",
+        url: baseUrl + '/chat/send_message',
+        data: {
+            receiver_id,
+            converstation_id,
+            message,
+        },
+        headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
+    }).then((response) => {
+        console.log('%cMyProject%cline:420%cresponse', 'color:#fff;background:#ee6f57;padding:3px;border-radius:2px', 'color:#fff;background:#1f3c88;padding:3px;border-radius:2px', 'color:#fff;background:rgb(237, 222, 139);padding:3px;border-radius:2px', response)
+
+    })
+}
+
+// Link send message to message input form
+const messageForm = document.getElementById('messageForm'),
+    messageInput = document.getElementById('messageInput');
+
+messageForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    let message = messageInput.value;
+    sendMessage(mainReceiverId, mainConversationId, message);
+})
+
+// Add the function to each chat card
 setTimeout(() => {
     // Grab chatting cards
     const chatCards = document.querySelectorAll('.chat-card');
