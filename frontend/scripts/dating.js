@@ -367,7 +367,7 @@ const closeConversationScreen = () => {
 }
 
 // message component
-const message = (properties) => {
+const Message = (properties) => {
     return `
         <div class="message ${properties.byMe ? 'me' : ''}">
             <p class="message-content">${properties.message}</p>
@@ -400,7 +400,7 @@ function getMessages(conversationId) {
     }).then((response) => {
         let messages = response.data;
         for (let i of Object.keys(messages)) {
-            messagesContainer.innerHTML += message({
+            messagesContainer.innerHTML += Message({
                 message: messages[i].message,
                 time: `${messages[i].created_at.split('T')[0]} ${messages[i].created_at.split('T')[1].split('.')[0]}`,
                 byMe: messages[i].sender_id == localStorage.getItem('user_id') ? true : false,
@@ -408,6 +408,22 @@ function getMessages(conversationId) {
         }
     })
 }
+
+
+/**
+ * @description Send message
+ * @action Send message to specific user and convo
+ */
+
+// Variables
+const messageForm = document.getElementById('messageForm'),
+    messageInput = document.getElementById('messageInput');
+
+/**
+* @param {Integer receiver_id, Integer conversation_id, String message}
+* @description Send message function
+* @action Send message based on conversation id and receiver_id
+*/
 
 const sendMessage = (receiver_id, converstation_id, message) => {
     axios({
@@ -423,14 +439,30 @@ const sendMessage = (receiver_id, converstation_id, message) => {
             Authorization: `Bearer ${localStorage.getItem('access_token')}`,
         },
     }).then((response) => {
-        console.log('%cMyProject%cline:420%cresponse', 'color:#fff;background:#ee6f57;padding:3px;border-radius:2px', 'color:#fff;background:#1f3c88;padding:3px;border-radius:2px', 'color:#fff;background:rgb(237, 222, 139);padding:3px;border-radius:2px', response)
+        // if success and message sent
+        if (response.data.status) {
+            // empty input box
+            messageInput.value = "";
 
+            // message date
+            let messageDate = new Date();
+
+            // add message to chat (kinda live)
+            messagesContainer.innerHTML += Message({
+                message: message,
+                time: `${messageDate.toISOString().split('T')[0]} ${messageDate.toISOString().split('T')[1].split('.')[0]}`,
+                byMe: true,
+            })
+        } else {
+            alert("Error occured");
+        }
+    }).catch(e => {
+        alert(e);
     })
 }
 
 // Link send message to message input form
-const messageForm = document.getElementById('messageForm'),
-    messageInput = document.getElementById('messageInput');
+
 
 messageForm.addEventListener('submit', (event) => {
     event.preventDefault();
