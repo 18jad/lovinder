@@ -366,7 +366,7 @@ main {
     padding-top: 40px;
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 30px;
 }
 
 .message {
@@ -376,7 +376,7 @@ main {
     flex-direction: column;
     align-self: flex-start;
     flex-direction: column;
-    background: var(--blue);
+    background: #f1f1f1;
     padding: 10px 20px;
     position: relative;
     border-radius: 20px;
@@ -397,7 +397,7 @@ main {
 
 .message.me {
     align-self: flex-end;
-    background: #f1f1f1 !important;
+    background: var(--blue) !important;
 }
 
 .message.me .message-time {
