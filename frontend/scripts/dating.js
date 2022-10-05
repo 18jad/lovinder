@@ -331,7 +331,8 @@ function matchUser(user_id) {
 const conversationPage = document.querySelector('.conversation-page'),
     matchingSection = document.querySelector('.lovinder'),
     chatterName = document.querySelector('.chatter-name'),
-    messagesContainer = document.querySelector('.messages-container');
+    messagesContainer = document.querySelector('.messages-container'),
+    mainSection = document.querySelector('.main-section');
 
 let mainConversationId = null;
 let mainReceiverId = null;
@@ -353,6 +354,8 @@ const showConversationScreen = (e) => {
     // hide matching section
     matchingSection.hidden = true;
 
+    mainSection.style.display = 'unset';
+
     // Show conversation screen
     conversationPage.hidden = false;
 }
@@ -362,6 +365,7 @@ const showConversationScreen = (e) => {
  * @action Hide=conversation screen and show matching page
  */
 const closeConversationScreen = () => {
+    mainSection.style.display = 'flex';
     matchingSection.hidden = false;
     conversationPage.hidden = true;
 }
