@@ -332,7 +332,8 @@ const conversationPage = document.querySelector('.conversation-page'),
     matchingSection = document.querySelector('.lovinder'),
     chatterName = document.querySelector('.chatter-name'),
     messagesContainer = document.querySelector('.messages-container'),
-    mainSection = document.querySelector('.main-section');
+    mainSection = document.querySelector('.main-section'),
+    blockBtn = document.querySelector('.block-button');
 
 let mainConversationId = null;
 let mainReceiverId = null;
@@ -346,8 +347,10 @@ const showConversationScreen = (e) => {
     // Note: chatter name is saved in the div dataset, to reduce axios calls and better performance
     chatterName.textContent = e.dataset.name;
 
+
     let conversationId = e.dataset.id;
     mainReceiverId = e.dataset.userid;
+    blockBtn.dataset.id = mainReceiverId;
     // get conversation messages
     getMessages(conversationId);
 
@@ -493,3 +496,27 @@ setTimeout(() => {
     closeBtn.onclick = closeConversationScreen;
 }, 1000)
 
+// Blocking
+const block = (user_id) => {
+    axios({
+        method: "POST",
+        url: baseUrl + '/chat/block',
+        data: {
+            second_id: user_id,
+        },
+        headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
+    }).then((response) => {
+        if (response.data.status) {
+
+        } else {
+
+        }
+    })
+}
+
+blockBtn.addEventListener('click', (e) => {
+    block(blockBtn.dataset.id);
+})
