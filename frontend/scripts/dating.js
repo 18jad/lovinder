@@ -395,7 +395,6 @@ function getMessages(conversationId) {
     }).then((response) => {
         let messages = response.data;
         for (let i of Object.keys(messages)) {
-            console.log(messages[i])
             messagesContainer.innerHTML += message({
                 message: messages[i].message,
                 time: `${messages[i].created_at.split('T')[0]} ${messages[i].created_at.split('T')[1].split('.')[0]}`,
