@@ -321,3 +321,55 @@ function matchUser(user_id) {
     })
 }
 
+////////////////////////////////////////////////////////
+/**
+ * @description Conversation section
+ * @action Show conversation screen and chat with other user
+ */
+
+// Variables
+const conversationPage = document.querySelector('.conversation-page'),
+    matchingSection = document.querySelector('.lovinder'),
+    chatterName = document.querySelector('.chatter-name'),
+    messagesContainer = document.querySelector('.messages-container');
+
+/**
+ * @description Show conversation screen + fetch conversation messages
+ * @action Hide matching page and show conversation screen with the chat messages and user info 
+ */
+const showConversationScreen = (e) => {
+    // hide matching section
+    matchingSection.hidden = true;
+
+    // update chatter name
+    // Note: chatter name is saved in the div dataset, to reduce axios calls and better performance
+    chatterName.textContent = e.dataset.name;
+
+    // Show conversation screen
+    conversationPage.hidden = false;
+}
+
+/**
+ * @description Close conversation screen
+ * @action Hide=conversation screen and show matching page
+ */
+const closeConversationScreen = () => {
+    matchingSection.hidden = false;
+    conversationPage.hidden = true;
+}
+
+// Add the function to each card
+setTimeout(() => {
+    // Grab chatting cards
+    const chatCards = document.querySelectorAll('.chat-card');
+    chatCards.forEach((card) => {
+        card.addEventListener('click', () => {
+            showConversationScreen(card);
+        })
+    })
+
+    const closeBtn = document.querySelector('.close-conversation');
+
+    closeBtn.onclick = closeConversationScreen;
+}, 1000)
+
