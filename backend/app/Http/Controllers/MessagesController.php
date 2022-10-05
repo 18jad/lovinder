@@ -21,7 +21,7 @@ class MessagesController extends Controller
         $chats = Conversation::all()->where('user_id', $request->user()->id)->unique(['converstation_with']);
         $result = [];
         foreach ($chats as $chat) {
-            $result[] = $this->fetchUserById_no_request($chat->converstation_with);
+            $result[] = [$this->fetchUserById_no_request($chat->converstation_with), $chat];
         }
         return response()->json($result);
     }
