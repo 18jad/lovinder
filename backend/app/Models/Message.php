@@ -14,5 +14,6 @@ class Message extends Model
         'receiver_id',
         'converstation_id',
         'message',
+        'created_at',
     ];
 }
