@@ -1,21 +1,38 @@
-// check if user is logged in
+/**
+ * @description Check whether user is logged in or no by checking token in localStorage
+ * @action If user is not logged in redirect him to login page
+ */
+
 if (!localStorage.getItem('access_token')) {
     window.location.href = './index.html'
 }
 
-// Linking
 
+////////////////////////////////////////////////////////
+/**
+ * @description Linking section
+ * @action Linking apis to frontend
+ */
+
+// Api link base URL
 const baseUrl = 'http://127.0.0.1:8000/api';
 
-// check if user has a profile or no
+/**
+ * @description Check if user has profile picture or no
+ * @action If there's no profile pop up profile upload screen
+ */
+
+// Variables
 const profilePicker = document.querySelector('.profile-picker'),
     uploadInput = document.getElementById('uploadProfile'),
     profileResult = document.querySelector('.profile-result'),
     labelPic = document.querySelector('.labelPic'),
     signOutBtn = document.querySelector('.profile-picture');
 
+// Checking condition variable
 let checkProfile = localStorage.getItem('profile_check') == 'false' ? false : true;
 
+// Show profile uploac screen
 if (!checkProfile) {
     profilePicker.classList.add('show-profile-picker');
     uploadInput.addEventListener('change', () => {
@@ -23,13 +40,19 @@ if (!checkProfile) {
     })
 }
 
+/**
+ * @param {HTMLElement input:file}
+ * @description Validate and upload profile picture
+ * @action Extract image from input file and validate it before sending it to server
+ */
+
 function validateAndUpload(input) {
     let URL = window.URL || window.webkitURL;
     let file = input.files[0];
 
     if (file) {
         let image = new Image();
-
+        // If image loaded that mean the uploaded file is a working image 
         image.onload = function () {
             if (this.width) {
                 axios({
@@ -56,19 +79,35 @@ function validateAndUpload(input) {
                 })
             }
         };
+        // Append the uploaded image blob link to image variable to check if it's a working image
         image.src = URL.createObjectURL(file);
     }
 }
 
-// Update homepage
+
+////////////////////////////////////////////////////////
+/**
+ * @description After login and setting up profile (if needed) update user infos
+ * @action Update user name and profile in navigation bar
+ */
+
+// Navigation bar variables
 const navigationName = document.querySelector('.profile-name'),
     navigationProfile = document.querySelector('.profile-picture');
 
+// Updating the name and profile to logged in user info
+// Note: User info stored inside localStorage upon logging in, to prevent extra axios calls and better/faster performance
 navigationName.textContent = localStorage.getItem('user_name');
 navigationProfile.src = "../" + localStorage.getItem('profile_src');
 
-// Get user chat
+/**
+ * @description Get user chat 
+ * @action Fetch user available chat/contacts and display them inside the side bar 
+ */
+
+// Side bar chat container where all chats are stored
 const chatContainer = document.querySelector('.chat-cards-container');
+
 (() => {
     axios({
         method: "POST",
@@ -82,17 +121,23 @@ const chatContainer = document.querySelector('.chat-cards-container');
         for (let i of Object.keys(data)) {
             let user = data[i].original;
             let cardHtml = `
-                <div class="chat-card" data-id="1">
-                    <img src="../backend/public/images/${user.profile}"
-                        alt="profile" class="chart-card-profile">
-                    <span class="chat-card-name">${user.name}</span>
+                <div  class = "chat-card" data-id = "1" data-name="${user.name}">
+                <img  src   = "../backend/public/images/${user.profile}"
+                      alt   = "profile" class     = "chart-card-profile">
+                <span class = "chat-card-name">${user.name}</span>
                 </div>`
             chatContainer.innerHTML += cardHtml;
         }
     })
 })();
 
-// get users by preference
+
+////////////////////////////////////////////////////////
+/**
+ * @description Tinder cards + Show users to pick from
+ * @action Adding tinder cards functionality + Fetch available users to show the for the logged in user to match from (based on preference)
+ */
+
 (() => {
     axios({
         method: "POST",
@@ -105,8 +150,8 @@ const chatContainer = document.querySelector('.chat-cards-container');
             Authorization: `Bearer ${localStorage.getItem('access_token')}`,
         },
     }).then((response) => {
-        // Credit: https://codepen.io/rudtjd2548/pen/qBodXzO
-        // Tinder card style
+        // Credits: https://codepen.io/rudtjd2548/pen/qBodXzO
+        // Tinder cards functionality
         let imgCount = 0
         const cloudUrl = 'https://djjjk9bjm164h.cloudfront.net/'
         const data = response.data
@@ -130,21 +175,28 @@ const chatContainer = document.querySelector('.chat-cards-container');
             moveY = 0
             complete()
         }
+
+        /**
+        * @param {Object userData}
+        * @description Make a new card 
+        * @action Make a new tinder card with passed user data (name, age, image)
+        */
+
         function appendCard(data) {
             const firstCard = frame.children[0]
             const newCard = document.createElement('div')
             newCard.className = 'card'
             newCard.style.backgroundImage = `url('../backend/public/images/${data.profile}')`
             newCard.innerHTML = `
-          <div class="is-like">LIKE</div>
-          <div class="bottom">
-            <div class="title">
-              <span>${data.name}</span>
-            </div>
-            <div class="info">
-              ${data.age} years old
-            </div>
-          </div>
+                <div class="is-like"></div>
+                <div class="bottom">
+                        <div class = "title">
+                            <span>${data.name}</span>
+                        </div>
+                        <div class = "info">
+                            ${data.age} years old
+                        </div>
+                </div>
         `
             newCard.dataset.id = data.id;
             if (firstCard) frame.insertBefore(newCard, firstCard)
@@ -160,6 +212,7 @@ const chatContainer = document.querySelector('.chat-cards-container');
             current.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${deg}deg)`
             likeText.style.opacity = Math.abs((x / innerWidth * 2.1))
             likeText.className = `is-like ${x > 0 ? 'like' : 'nope'}`
+            // swipping right will set status to match and match the user, to left will reject him
             if (x > 0) {
                 current.dataset.status = "match"
             } else {
@@ -217,22 +270,40 @@ const chatContainer = document.querySelector('.chat-cards-container');
     })
 })();
 
-// sign out
+////////////////////////////////////////////////////////
+/**
+ * @description Sign out
+ * @action Clear localStorage from stored user info and revoke bearer token
+ */
+
+/**
+ * @param {Array batchList}
+ * @description Removed items from localStorage
+ * @action Loop over batchList and remove localStorage with the key appended to it
+ */
+
+const batchRemove = (batchList) => {
+    for (key of batchList) {
+        localStorage.removeItem(key);
+    }
+}
+
+// Sign out functionality
 const signout = () => {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('user_id');
-    localStorage.removeItem('user_age');
-    localStorage.removeItem('user_name');
-    localStorage.removeItem('user_email');
-    localStorage.removeItem('user_gender');
-    localStorage.removeItem('user_preference');
-    localStorage.removeItem('profile_src');
-    localStorage.removeItem('profile_check');
+    const authUserInformations = ['access_token', 'user_id', 'user_age', 'user_name', 'user_email', 'user_gender', 'user_preference', 'profile_src', 'profile_check'];
+    batchRemove(authUserInformations);
     window.location.reload();
 }
 
+// assign click event to sign out button
 signOutBtn.onclick = signout;
 
+////////////////////////////////////////////////////////
+/**
+ * @param {Integer user_id}
+ * @description Match users together
+ * @action Match logged in user with user_id
+ */
 
 function matchUser(user_id) {
     axios({
@@ -249,3 +320,4 @@ function matchUser(user_id) {
         console.log(response)
     })
 }
+
