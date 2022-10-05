@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Conversation;
 use App\Models\Message;
 use App\Models\User;
-use Illuminate\Support\Facades\Validator;
 
 class MessagesController extends Controller
 {
@@ -36,24 +35,25 @@ class MessagesController extends Controller
 
     public function sendMessage(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            "receiver_id" => "required",
-            "converstation_id" => "required",
-            "message" => "required|string|min:1",
+        $message = Message::create([
+            'sender_id' => auth()->user()->id,
+            'receiver_id' => $request->receiver_id,
+            'converstation_id' => $request->converstation_id,
+            'message' => $request->message,
+            'created_at' => new \DateTime(),
         ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => false,
-                'error' => $validator->errors()
-            ], 401);
-        } else {
-            $message = Message::create(['sender_id' => auth()->user()->id, $validator->validated()]);
-            return response()->json([
-                'status' => true,
-                'message' => 'Message sent successfully',
-            ], 201);
-        }
+        $other_user = Conversation::select('id')->where('user_id', $request->receiver_id)->where('converstation_with', auth()->user()->id)->get();
+        Message::create([
+            'sender_id' => auth()->user()->id,
+            'receiver_id' => $request->receiver_id,
+            'converstation_id' => $other_user[0]->id,
+            'message' => $request->message,
+            'created_at' => new \DateTime(),
+        ]);
+        return response()->json([
+            'status' => true,
+            'message' => 'Message sent successfully',
+        ]);
     }
 
     public function fetchUserById_no_request($id)
