@@ -118,16 +118,16 @@ const chatContainer = document.querySelector('.chat-cards-container');
         },
     }).then((response) => {
         let data = response.data;
-        for (let i of Object.keys(data)) {
-            let user = data[i].original;
+        data.forEach(d => {
+            let user = d[0].original;
             let cardHtml = `
-                <div  class = "chat-card" data-id = "1" data-name="${user.name}">
+                <div  class = "chat-card" data-id="${d[1].id}" data-name="${user.name}">
                 <img  src   = "../backend/public/images/${user.profile}"
-                      alt   = "profile" class     = "chart-card-profile">
+                alt   = "profile" class     = "chart-card-profile">
                 <span class = "chat-card-name">${user.name}</span>
                 </div>`
             chatContainer.innerHTML += cardHtml;
-        }
+        })
     })
 })();
 
@@ -338,12 +338,17 @@ const conversationPage = document.querySelector('.conversation-page'),
  * @action Hide matching page and show conversation screen with the chat messages and user info 
  */
 const showConversationScreen = (e) => {
-    // hide matching section
-    matchingSection.hidden = true;
-
     // update chatter name
     // Note: chatter name is saved in the div dataset, to reduce axios calls and better performance
     chatterName.textContent = e.dataset.name;
+
+    let conversationId = e.dataset.id;
+
+    // get conversation messages
+    getMessages(conversationId);
+
+    // hide matching section
+    matchingSection.hidden = true;
 
     // Show conversation screen
     conversationPage.hidden = false;
@@ -356,6 +361,40 @@ const showConversationScreen = (e) => {
 const closeConversationScreen = () => {
     matchingSection.hidden = false;
     conversationPage.hidden = true;
+}
+
+// message component
+const message = (properties) => {
+    return `
+        <div class="message me">
+            <p class="message-content">${properties.message}</p>
+            <p class="message-time">${properties.time}</p>
+        </div>
+    `;
+}
+
+/**
+ * @param {Integer conversationId}
+ * @description Get chat for a conversation
+ * @action Fetch chat by conversation id and show it on screen
+ */
+function getMessages(conversationId) {
+    // empty old messages
+    messagesContainer.innerHTML = "";
+
+    axios({
+        method: "POST",
+        url: baseUrl + '/chat/messages',
+        data: {
+            conversation_id: conversationId,
+        },
+        headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
+    }).then((response) => {
+        console.log(response)
+    })
 }
 
 // Add the function to each card
