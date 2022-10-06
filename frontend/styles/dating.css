@@ -242,7 +242,7 @@ main {
 }
 
 .card .like::after {
-    content: "YUMM";
+    content: "MATCH";
     color: #4dca93;
     border: 0.1em solid #4dca93;
 }
@@ -301,9 +301,10 @@ main {
 
 /* Conversation page */
 .conversation-page {
-    height: 100%;
+    height: 60%;
     width: 100%;
     position: relative;
+    top: 0;
 }
 
 .conversation-header {
@@ -325,16 +326,15 @@ main {
 }
 
 .input-container {
-    position: absolute;
-    bottom: 30px;
-    width: 100%;
+    position: fixed;
+    bottom: 0;
+    width: 81.3%;
     display: flex;
     justify-content: space-between;
 }
 
 #messageInput {
     flex: 1;
-    height: 60px;
     padding: 20px;
     outline: none;
     background: var(--white);
@@ -359,14 +359,17 @@ main {
 }
 
 .messages-container {
-    width: 100%;
-    height: 900px;
+    width: 82%;
+    height: 82%;
     overflow: scroll;
-    padding: 105px 20px;
-    padding-top: 40px;
+    padding: 40px 20px;
+    padding-bottom: 90px;
+    position: fixed;
+    bottom: 0;
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 30px;
+    scroll-behavior: smooth;
 }
 
 .message {
@@ -376,7 +379,8 @@ main {
     flex-direction: column;
     align-self: flex-start;
     flex-direction: column;
-    background: var(--blue);
+    background: #f1f1f1;
+    min-width: 150px;
     padding: 10px 20px;
     position: relative;
     border-radius: 20px;
@@ -397,7 +401,7 @@ main {
 
 .message.me {
     align-self: flex-end;
-    background: #f1f1f1 !important;
+    background: var(--blue) !important;
 }
 
 .message.me .message-time {
@@ -459,4 +463,19 @@ main {
     margin-bottom: 20px;
     font-weight: 600;
     color: rgb(24, 143, 24);
+}
+
+.block-div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 95vh;
+    font-size: 50px;
+    font-weight: 600;
+    color: red;
+    display: none;
+    place-items: center;
+    background: white;
 }

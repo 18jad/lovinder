@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Conversation;
 use App\Models\Message;
 use App\Models\User;
-use Illuminate\Support\Facades\Validator;
+use App\Models\Block;
 
 class MessagesController extends Controller
 {
@@ -22,7 +22,7 @@ class MessagesController extends Controller
         $chats = Conversation::all()->where('user_id', $request->user()->id)->unique(['converstation_with']);
         $result = [];
         foreach ($chats as $chat) {
-            $result[] = $this->fetchUserById_no_request($chat->converstation_with);
+            $result[] = [$this->fetchUserById_no_request($chat->converstation_with), $chat];
         }
         return response()->json($result);
     }
@@ -36,24 +36,38 @@ class MessagesController extends Controller
 
     public function sendMessage(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            "receiver_id" => "required",
-            "converstation_id" => "required",
-            "message" => "required|string|min:1",
+        $message = Message::create([
+            'sender_id' => auth()->user()->id,
+            'receiver_id' => $request->receiver_id,
+            'converstation_id' => $request->converstation_id,
+            'message' => $request->message,
+            'created_at' => new \DateTime(),
         ]);
+        $other_user = Conversation::select('id')->where('user_id', $request->receiver_id)->where('converstation_with', auth()->user()->id)->get();
+        Message::create([
+            'sender_id' => auth()->user()->id,
+            'receiver_id' => $request->receiver_id,
+            'converstation_id' => $other_user[0]->id,
+            'message' => $request->message,
+            'created_at' => new \DateTime(),
+        ]);
+        return response()->json([
+            'status' => true,
+            'message' => 'Message sent successfully',
+        ]);
+    }
 
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => false,
-                'error' => $validator->errors()
-            ], 401);
-        } else {
-            $message = Message::create(['sender_id' => auth()->user()->id, $validator->validated()]);
-            return response()->json([
-                'status' => true,
-                'message' => 'Message sent successfully',
-            ], 201);
-        }
+    public function block(Request $request)
+    {
+        $second_id = $request->second_id;
+        Block::create([
+            'first_id' => auth()->user()->id,
+            'second_id' => $second_id,
+        ]);
+        return response()->json([
+            'status' => true,
+            'message' => 'Blocked successfully',
+        ]);
     }
 
     public function fetchUserById_no_request($id)

@@ -24,6 +24,7 @@ Route::group(["middleware" => 'api', "prefix" => "chat"], function ($router) {
     Route::post('chat', [MessagesController::class, 'fetchChat']);
     Route::post('messages', [MessagesController::class, 'fetchMessages']);
     Route::post('send_message', [MessagesController::class, 'sendMessage']);
+    Route::post('block', [MessagesController::class, 'block']);
 });
 
 Route::group(['middleware' => 'api', "prefix" => "date"], function ($router) {
